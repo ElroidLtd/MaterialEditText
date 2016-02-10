@@ -332,6 +332,10 @@ public class MaterialEditText extends AppCompatEditText {
   }
 
   private void init(Context context, AttributeSet attrs) {
+    if (isInEditMode()) {
+        return;
+    }
+
     iconSize = getPixel(32);
     iconOuterWidth = getPixel(48);
     iconOuterHeight = getPixel(32);
@@ -1291,7 +1295,7 @@ public class MaterialEditText extends AppCompatEditText {
     }
 
     // draw the clear button
-    if (hasFocus() && showClearButton && !TextUtils.isEmpty(getText())) {
+    if (hasFocus() && showClearButton && !TextUtils.isEmpty(getText()) && isEnabled()) {
       paint.setAlpha(255);
       int buttonLeft;
       if (isRTL()) {
@@ -1357,7 +1361,7 @@ public class MaterialEditText extends AppCompatEditText {
     if (floatingLabelEnabled && !TextUtils.isEmpty(floatingLabelText)) {
       textPaint.setTextSize(floatingLabelTextSize);
       // calculate the text color
-      textPaint.setColor((Integer) focusEvaluator.evaluate(focusFraction, floatingLabelTextColor != -1 ? floatingLabelTextColor : (baseColor & 0x00ffffff | 0x44000000), primaryColor));
+      textPaint.setColor((Integer) focusEvaluator.evaluate(focusFraction * (isEnabled() ? 1 : 0), floatingLabelTextColor != -1 ? floatingLabelTextColor : (baseColor & 0x00ffffff | 0x44000000), primaryColor));
 
       // calculate the horizontal position
       float floatingLabelWidth = textPaint.measureText(floatingLabelText.toString());
@@ -1375,7 +1379,7 @@ public class MaterialEditText extends AppCompatEditText {
       int floatingLabelStartY = (int) (innerPaddingTop + floatingLabelTextSize + floatingLabelPadding - distance * (floatingLabelAlwaysShown ? 1 : floatingLabelFraction) + getScrollY());
 
       // calculate the alpha
-      int alpha = ((int) ((floatingLabelAlwaysShown ? 1 : floatingLabelFraction) * 0xff * (0.74f * focusFraction + 0.26f) * (floatingLabelTextColor != -1 ? 1 : Color.alpha(floatingLabelTextColor) / 256f)));
+      int alpha = ((int) ((floatingLabelAlwaysShown ? 1 : floatingLabelFraction) * 0xff * (0.74f * focusFraction * (isEnabled() ? 1 : 0) + 0.26f) * (floatingLabelTextColor != -1 ? 1 : Color.alpha(floatingLabelTextColor) / 256f)));
       textPaint.setAlpha(alpha);
 
       // draw the floating label
@@ -1463,7 +1467,7 @@ public class MaterialEditText extends AppCompatEditText {
       setSelection(0);
       return false;
     }
-    if (hasFocus() && showClearButton) {
+    if (hasFocus() && showClearButton && isEnabled()) {
       switch (event.getAction()) {
         case MotionEvent.ACTION_DOWN:
           if (insideClearButton(event)) {
