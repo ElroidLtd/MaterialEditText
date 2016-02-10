@@ -1,5 +1,7 @@
 package com.rengwuxian.materialedittext;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -32,8 +34,6 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.nineoldandroids.animation.ArgbEvaluator;
-import com.nineoldandroids.animation.ObjectAnimator;
 import com.rengwuxian.materialedittext.validation.METLengthChecker;
 import com.rengwuxian.materialedittext.validation.METValidator;
 
@@ -333,7 +333,7 @@ public class MaterialEditText extends AppCompatEditText {
 
   private void init(Context context, AttributeSet attrs) {
     if (isInEditMode()) {
-        return;
+      return;
     }
 
     iconSize = getPixel(32);
@@ -418,11 +418,11 @@ public class MaterialEditText extends AppCompatEditText {
     typedArray.recycle();
 
     int[] paddings = new int[]{
-        android.R.attr.padding, // 0
-        android.R.attr.paddingLeft, // 1
-        android.R.attr.paddingTop, // 2
-        android.R.attr.paddingRight, // 3
-        android.R.attr.paddingBottom // 4
+            android.R.attr.padding, // 0
+            android.R.attr.paddingLeft, // 1
+            android.R.attr.paddingTop, // 2
+            android.R.attr.paddingRight, // 3
+            android.R.attr.paddingBottom // 4
     };
     TypedArray paddingsTypedArray = context.obtainStyledAttributes(attrs, paddings);
     int padding = paddingsTypedArray.getDimensionPixelSize(0, 0);
@@ -682,6 +682,7 @@ public class MaterialEditText extends AppCompatEditText {
 
   /**
    * Set the color of the underline for normal state
+   *
    * @param color
    */
   public void setUnderlineColor(int color) {
@@ -820,8 +821,8 @@ public class MaterialEditText extends AppCompatEditText {
     textPaint.setTextSize(bottomTextSize);
     if (tempErrorText != null || helperText != null) {
       Layout.Alignment alignment = (getGravity() & Gravity.RIGHT) == Gravity.RIGHT || isRTL() ?
-          Layout.Alignment.ALIGN_OPPOSITE : (getGravity() & Gravity.LEFT) == Gravity.LEFT ?
-          Layout.Alignment.ALIGN_NORMAL : Layout.Alignment.ALIGN_CENTER;
+              Layout.Alignment.ALIGN_OPPOSITE : (getGravity() & Gravity.LEFT) == Gravity.LEFT ?
+              Layout.Alignment.ALIGN_NORMAL : Layout.Alignment.ALIGN_CENTER;
       textLayout = new StaticLayout(tempErrorText != null ? tempErrorText : helperText, textPaint, getWidth() - getBottomTextLeftOffset() - getBottomTextRightOffset() - getPaddingLeft() - getPaddingRight(), alignment, 1.0f, 0.0f, true);
       destBottomLines = Math.max(textLayout.getLineCount(), minBottomTextLines);
     } else {
@@ -1521,7 +1522,7 @@ public class MaterialEditText extends AppCompatEditText {
   }
 
   private int checkLength(CharSequence text) {
-    if (lengthChecker==null) return text.length();
+    if (lengthChecker == null) return text.length();
     return lengthChecker.getLength(text);
   }
 }
