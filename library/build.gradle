@@ -1,12 +1,12 @@
 apply plugin: 'com.android.library'
 
 android {
-  compileSdkVersion Integer.parseInt(project.ANDROID_BUILD_SDK_VERSION)
-  buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
+  compileSdkVersion 23//Integer.parseInt(project.ANDROID_BUILD_SDK_VERSION)
+  buildToolsVersion '23.0.2'//project.ANDROID_BUILD_TOOLS_VERSION
 
   defaultConfig {
     minSdkVersion 15
-    targetSdkVersion Integer.parseInt(project.ANDROID_BUILD_SDK_VERSION)
+    targetSdkVersion 23//Integer.parseInt(project.ANDROID_BUILD_SDK_VERSION)
   }
   buildTypes {
     release {
@@ -17,8 +17,9 @@ android {
 }
 
 dependencies {
-  compile 'com.android.support:support-annotations:23.1.1'
-  compile 'com.android.support:appcompat-v7:23.1.1'
+  compile 'com.android.support:support-annotations:23.2.0'
+  //compile 'com.nineoldandroids:library:2.4.0'
+  compile 'com.android.support:appcompat-v7:23.2.0'
 }
 
 // Used to push in maven
